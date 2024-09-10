@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Project</title>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <label for="goal">Goals</label>
+      <input type="text" id="goal" v-model="enteredValue">
+      <button v-on:click="addGoal">Add Goal</button>
+  
+    </div>
+    <ul>
+      <li v-for="goal in goals">
+        {{ goal }}
+      </li>
+    </ul>
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
