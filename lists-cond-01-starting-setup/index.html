@@ -22,7 +22,7 @@
       <button @click="addGoal">Add Goal</button>
       <p v-if="!goals.length">No goals have been added yet - please start adding some!</p>
       <ul>
-        <li v-for="g in goals">{{g}}</li>
+        <li v-for="(gl, index) in goals" @click="removeGoal(index)">{{gl}}</li>
       </ul>
     </section>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
