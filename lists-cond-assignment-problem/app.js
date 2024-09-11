@@ -6,7 +6,15 @@ const app = Vue.createApp({
       isAssignmentShow: true,
     };
   },
-  // TODO : Add dynamyc classes
+  computed: {
+    classes() {
+      if (this.isAssignmentShow) {
+        return "";
+      } else {
+        return "display: none";
+      }
+    },
+  },
   methods: {
     setInputText(event) {
       this.inputField = event.target.value;

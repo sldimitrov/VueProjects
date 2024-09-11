@@ -22,7 +22,7 @@
       <!-- When clicking "Add Task" a new task with the entered text should be added -->
       <input v-model="inputField" type="text">
       <button @click="addTask">Add Task</button>
-      <ul >
+      <ul :style="classes" >
         <li v-for="task in tasksList">{{task}}</li>
       </ul>
       <!-- 3) When the below button is pressed, the list should be shown or hidden -->
