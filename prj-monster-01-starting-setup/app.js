@@ -29,13 +29,13 @@ Vue.createApp({
   },
   methods: {
     healHero() {
-      bonusHealth = getRandomValue(25, 15);
+      bonusHealth = getRandomValue(20, 15);
       this.heroHealth += bonusHealth;
       this.attackHero();
     },
     attackMonster(max, min) {
       const heroAttack = getRandomValue(max, min);
-      this.battleLog.unshift("Hero Attack: ", heroAttack);
+      this.battleLog.unshift(`Hero Attack: ${heroAttack}`);
       if (checkKill(heroAttack, this.monsterHealth)) {
         this.monsterHealth = 0;
         this.gameOver("hero");
@@ -47,7 +47,7 @@ Vue.createApp({
     attackHero() {
       this.currentRound += 1;
       const monsterAttack = getRandomValue(20, 10);
-      this.battleLog.unshift("Monster Attack: ", monsterAttack);
+      this.battleLog.unshift(`Monster Attack: ${monsterAttack}`);
       if (checkKill(monsterAttack, this.heroHealth)) {
         this.heroHealth = 0;
         this.gameOver("monster");
@@ -72,6 +72,9 @@ Vue.createApp({
       this.currentRound = 0;
       this.battleLog = [];
       this.winner = null;
+    },
+    getStyle(id) {
+      return id % 2 === 0 ? "red" : "blue";
     },
   },
 }).mount("#game");
