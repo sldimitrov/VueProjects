@@ -24,6 +24,18 @@ Vue.createApp({
       return { width: this.heroHealth + "%" };
     },
   },
+  watch: {
+    monsterHealth(value) {
+      if (value <= 0) {
+        this.winner = "hero";
+      }
+    },
+    heroHealth(value) {
+      if (value <= 0) {
+        this.winner = "monster";
+      }
+    },
+  },
   methods: {
     healHero() {
       bonusHealth = getRandomValue(20, 15);
@@ -32,13 +44,11 @@ Vue.createApp({
       } else {
         this.heroHealth += bonusHealth;
       }
-
       this.logAction({
         action: `Hero Healed ${bonusHealth}`,
         actionType: "heal",
         actionBy: "hero",
       });
-      console.log("execute");
       this.attackHero();
     },
     attackMonster(max, min) {
@@ -51,7 +61,6 @@ Vue.createApp({
       // this.battleLog.unshift(`Hero Attack: ${heroAttack}`);
       if (checkKill(heroAttack, this.monsterHealth)) {
         this.monsterHealth = 0;
-        this.gameOver("hero");
       } else {
         this.monsterHealth -= heroAttack;
         this.attackHero();
@@ -68,21 +77,12 @@ Vue.createApp({
       // this.battleLog.unshift(`Monster Attack: ${monsterAttack}`);
       if (checkKill(monsterAttack, this.heroHealth)) {
         this.heroHealth = 0;
-        this.gameOver("monster");
       } else {
         this.heroHealth -= monsterAttack;
       }
     },
-    gameOver(winner) {
-      if (winner === "hero") {
-        this.winner = "hero";
-      } else if (winner === "monster") {
-        this.winner = "monster";
-      }
-    },
     surrender() {
       this.monsterHealth = 0;
-      this.gameOver("monster");
     },
     restartGame() {
       this.monsterHealth = 100;
