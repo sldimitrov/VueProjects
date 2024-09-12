@@ -23,19 +23,32 @@ Vue.createApp({
     heroBarStyles() {
       return { width: this.heroHealth + "%" };
     },
-    maySpecialAttack() {
-      return this.currentRound % 5 === 0;
-    },
   },
   methods: {
     healHero() {
       bonusHealth = getRandomValue(20, 15);
-      this.heroHealth += bonusHealth;
+      if (this.heroHealth + bonusHealth >= 100) {
+        this.heroHealth = 100;
+      } else {
+        this.heroHealth += bonusHealth;
+      }
+
+      this.logAction({
+        action: `Hero Healed ${bonusHealth}`,
+        actionType: "heal",
+        actionBy: "hero",
+      });
+      console.log("execute");
       this.attackHero();
     },
     attackMonster(max, min) {
       const heroAttack = getRandomValue(max, min);
-      this.battleLog.unshift(`Hero Attack: ${heroAttack}`);
+      this.logAction({
+        action: `Hero Attack ${heroAttack}`,
+        actionType: "attack",
+        actionBy: "hero",
+      });
+      // this.battleLog.unshift(`Hero Attack: ${heroAttack}`);
       if (checkKill(heroAttack, this.monsterHealth)) {
         this.monsterHealth = 0;
         this.gameOver("hero");
@@ -47,7 +60,12 @@ Vue.createApp({
     attackHero() {
       this.currentRound += 1;
       const monsterAttack = getRandomValue(20, 10);
-      this.battleLog.unshift(`Monster Attack: ${monsterAttack}`);
+      this.logAction({
+        action: `Monster Attack ${monsterAttack}`,
+        actionType: "attack",
+        actionBy: "monster",
+      });
+      // this.battleLog.unshift(`Monster Attack: ${monsterAttack}`);
       if (checkKill(monsterAttack, this.heroHealth)) {
         this.heroHealth = 0;
         this.gameOver("monster");
@@ -73,8 +91,18 @@ Vue.createApp({
       this.battleLog = [];
       this.winner = null;
     },
-    getStyle(id) {
-      return id % 2 === 0 ? "red" : "blue";
+    getStyle(actionBy, actionType) {
+      if (actionType === "heal") {
+        return "green";
+      }
+      if (actionBy === "monster") {
+        return "red";
+      } else {
+        return "blue";
+      }
+    },
+    logAction(action) {
+      this.battleLog.unshift(action);
     },
   },
 }).mount("#game");

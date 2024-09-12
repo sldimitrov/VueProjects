@@ -50,7 +50,7 @@
       <section id="log" class="container">
         <h2>Battle Log</h2>
         <ul v-if="battleLog.length > 0">
-          <li :style="{color: (getStyle(id))}" v-for="(log, id) in battleLog" :key="id">{{log}}</li>
+          <li :style="{color: (getStyle(actionBy, actionType))}" v-for="{action, actionType, actionBy} in battleLog" :key="id">{{action}}</li>
         </ul> 
         <h3 v-else>Empty for now</h3>
       </section>
