@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Monster Slayer</h1>
+    </header>
+    <div id="game">
+      <div v-if="!winner">
+        <section  id="monster" class="container">
+          <h2>Round: {{currentRound}}</h2>
+          <h2>Monster Health</h2>
+          <div class="healthbar">
+            <div :style="monsterBarStyles" class="healthbar__value"></div>
+          </div>
+        </section>
+        <section id="player" class="container">
+          <h2>Your Health</h2>
+          <div  class="healthbar">
+            <div :style="heroBarStyles" class="healthbar__value"></div>
+          </div>
+        </section>
+        <section id="controls">
+          <button @click="attackMonster(15, 12)">ATTACK</button>
+          <button :disabled="currentRound % 3" @click="attackMonster(18, 15)">SPECIAL ATTACK</button>
+          <button :disabled="currentRound % 3" @click="healHero">HEAL</button>
+          <button @click="surrender">SURRENDER</button>
+        </section>
+      </div>
+      <div v-else>
+        <section id="game-over">
+        <h2 id="game-over">GAME OVER</h2>
+         <h2 v-if="winner === 'hero'">you WON!</h2> 
+         <h2 v-else>the {{winner}} WON</h2> 
+         <button @click="restartGame">Play Again</button>
+        </section>
+      </div>
+      
+      <section id="log" class="container">
+        <h2>Battle Log</h2>
+        <ul v-if="battleLog.length">
+          <li v-for="log in battleLog">{{log}}</li>
+        </ul>
+        <h3 v-else>Empty for now</h3>
+      </section>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </body>
+</html>
