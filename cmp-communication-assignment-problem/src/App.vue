@@ -10,8 +10,12 @@ export default {
   },
   methods: {
     changeUserData(name, age) {
-      this.user.name = name,
-      this.user.age = age
+      if (name != '') {
+        this.user.name = name
+      }
+      if (age != '') {
+        this.user.age = age
+      }
     }
   }
 }

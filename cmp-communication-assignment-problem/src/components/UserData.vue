@@ -27,9 +27,9 @@ export default{
     <h2>Change User Data</h2>
     <form>
       <label for="fname">Name:</label>
-      <input :value="inputName" @input="setName" type="text"><br><br>
+      <input v-model="inputName" type="text"><br><br>
       <label for="lname">Age:</label>
-      <input :value="inputAge" @input="setAge" type="text"><br><br>
+      <input v-model="inputAge" @click.enter="changeData" type="text"><br><br>
       <input id="btn-submit" @click="changeData" value="Submit" type="submit">
     </form>
   </section>
