@@ -15,12 +15,12 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import {reactive} from 'vue';
 
-const data = ref({courseGoal: 'Master Vue', isShowed: true, });
+const data = reactive({courseGoal: 'Master Vue', isShowed: true, });
 
 const toggleShow = () => {
-  data.value.isShowed = !data.value.isShowed
+  data.isShowed = !data.isShowed
 }
 </script>
 
